@@ -1,0 +1,158 @@
+<html>
+    <head> 
+        <title>LEGO: search sets</title>
+        <link rel="stylesheet" href="static/sets.css">
+        <img class="img" src="/static/lego.jpg" alt="Lego Logo">
+    </head>
+
+<body class = body1>
+    <form class=" body2" action="sets" method="get">
+        
+        <label>
+            <span>set name:</span>
+            <input class="in1" type="text" name=set_name value="{{params['set_name']}}">
+        </label><br>
+        <label>
+            <br>
+            <label  class = "c1" ><span>Search by:</span></label>
+
+                <select class="in1" name= search_by id="result_count" >
+                <option value= 'true,false' selected> </option>
+                <option value= 'true' >starred</option>
+                <option value= 'false'>unstarred</option>
+                </select>
+
+                
+        </label>
+        <br>
+        <br><button class="submit1" type="submit">search</button><br>
+        
+    </form>
+</body>
+<body>
+    {% if result_count_r > 0 %}
+        <style>
+            table, th,td {
+                border: 1px solid black;
+               
+            }
+        </style>
+    <table class = "tb1">
+            <thead>
+                <tr>
+                    
+                    <th>
+                        {% if params.sort_dir == 'asc'%}
+                        <a href="/sets?set_name={{params['set_name']}}&theme_name={{params['theme_name']}}&part_count_gte={{params['part_count_gte']}}&part_count_lte={{params['part_count_lte']}}&limit={{params['limit']}}&sort_by=set_num&sort_dir=desc&page_num={{get_page_num('page_num')}}">Set number{% if params.sort_by == 'set_num'%}↓{% endif%}</a>
+                        {%else%}
+                        <a href="/sets?set_name={{params['set_name']}}&theme_name={{params['theme_name']}}&part_count_gte={{params['part_count_gte']}}&part_count_lte={{params['part_count_lte']}}&limit={{params['limit']}}&sort_by=set_num&sort_dir=asc&page_num={{get_page_num('page_num')}}">Set Number{% if params.sort_by == 'set_num'%}↑{% endif%}</a>
+                        {%endif%}
+                    </th>
+                    <th><a href="/sets?set_name={{params['set_name']}}&theme_name={{params['theme_name']}}&part_count_gte={{params['part_count_gte']}}&part_count_lte={{params['part_count_lte']}}&limit={{params['limit']}}&sort_by=set_name&sort_dir={{get_sort_dir('set_name')}}&page_num={{get_page_num('page_num')}}">Set Name
+                        {% if params.sort_by== 'set_name'%}
+                            {%if params.sort_dir == 'desc' %}
+                            ↓
+                            {%else%}
+                            ↑
+                            {% endif %}
+                        {%endif%}
+
+                    </a></th>
+                    <th><a href="/sets?set_name={{params['set_name']}}&theme_name={{params['theme_name']}}&part_count_gte={{params['part_count_gte']}}&part_count_lte={{params['part_count_lte']}}&limit={{params['limit']}}&sort_by=theme_name&sort_dir={{get_sort_dir('theme_name')}}&page_num={{get_page_num('page_num')}}">Theme Name
+                        {% if params.sort_by== 'theme_name'%}
+                            {%if params.sort_dir == 'desc' %}
+                            ↓
+                            {%else%}
+                            ↑
+                            {% endif %}
+                        {%endif%}
+                    </a></th>
+                    <th><a href="/sets?set_name={{params['set_name']}}&theme_name={{params['theme_name']}}&part_count_gte={{params['part_count_gte']}}&part_count_lte={{params['part_count_lte']}}&limit={{params['limit']}}&sort_by=year&sort_dir={{get_sort_dir('year')}}&page_num={{get_page_num('page_num')}}">Year
+                        {% if params.sort_by== 'year'%}
+                            {%if params.sort_dir == 'desc' %}
+                            ↓
+                            {%else%}
+                            ↑
+                            {% endif %}
+                        {%endif%}
+                    </a></th>
+                    <th><a href="/sets?set_name={{params['set_name']}}&theme_name={{params['theme_name']}}&part_count_gte={{params['part_count_gte']}}&part_count_lte={{params['part_count_lte']}}&limit={{params['limit']}}&sort_by=part_count&sort_dir={{get_sort_dir('part_count')}}&page_num={{get_page_num('page_num')}}">Piece Count
+                        {% if params.sort_by== 'part_count'%}
+                            {%if params.sort_dir == 'desc' %}
+                            ↓
+                            {%else%}
+                            ↑
+                            {% endif %}
+                        {%endif%}
+                    </a></th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for set in sets %}
+                  <tr>
+                     <td class = color1>{{ set.set_num }}</td>
+                     <td class = color1>{{ set.set_name }}</td>
+                     <td class = color1>{{ set.theme_name }}</td>
+                     <td class = color1>{{ set.year }} </td> 
+                     <td class = color1>{{ set.part_count }}</td>
+                     <td class="color1">
+                        <form   id="starred" method="get" action="/sets">
+                            {% if set.star %}
+                            <input type="hidden" name="star" value="false">
+                            {% else %}
+                            <input type="hidden" name="star" value="true">
+                            {% endif %}
+                            <input type="hidden" name="set_name" value="{{params.set_name }}">
+                            <input type="hidden" name="set_num2" value="{{ set.set_num }}">
+                            <input type="hidden" name="search_by" value="{{ search_by }}">
+                            <button type="submit" class="star-btn">{%if set.star %} &#11088; {% else %} &#10025; {% endif %}</button>
+ 
+                             
+                        </form>
+                        <!-- {%if params.star  %}
+                        <form method="get" action="/sets">
+                            <input type="hidden" name="set_name" value="{{params.set_name }}">
+                            <input type="hidden" name="set_num2" value="{{ set.set_num }}">
+                            <button type="submit" class="star-btn" name="star" value = false>UNSTAR</button>
+                        </form>
+                        {%endif%} -->
+                      </td>
+                  </tr>
+                {% endfor %}
+            </tbody>
+            
+    {% else %}
+    <h1 class = color1>No results :(</h1>
+    {% endif %}
+    
+        <!-- <tfoot>
+        <tr>
+          <td colspan="5">
+            {% if result_count_r > 0 %}
+            <form method="get" action="sets">
+            <body>
+               
+                <form action="sets" method="POST">
+                <label class="c1" for="page">Page:</label>
+                <input type="hidden" name="set_name" value="{{params.set_name }}">
+                <input type="hidden" name="theme_name" value="{{params.theme_name }}">
+                <input type="hidden" name="part_count_gte" value="{{params.part_count_gte}}">
+                <input type="hidden" name="part_count_lte" value="{{params.part_count_lte}}">
+                <input type="hidden" name="limit" value="{{params.limit}}">
+                
+                
+                <select class="in1" id="page_num" name="page_num">
+                    {% for i in range(1, (result_count_r// per_page ) + 2) %}
+                    <option  value="{{ i }}" {% if page_num == i %}selected{% endif %}>{{ i }}</option>
+                    {% endfor %}
+                </select>
+                <button class="c1" type="submit">Go</button>
+            </body>
+            </form>
+            {% endif %}
+        </td>
+        </tr>
+        </tfoot> -->
+    </table>
+</body>
+</html>

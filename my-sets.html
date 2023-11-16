@@ -1,0 +1,55 @@
+<html>
+    <head> 
+        <title>LEGO: search sets</title>
+        <link rel="stylesheet" href="static/sets.css">
+        <img class="img" src="/static/lego.jpg" alt="Lego Logo">
+    </head>
+
+<body class = body1>
+    <span class="body2">               
+        <h1>Your Sets</h1>        
+    </span>
+</body>
+<body>
+    {% if result_count_r > 0 %}
+    <h1 class = color1>{{result_count_r}} results</h1>
+        <style>
+            table, th,td {
+                border: 1px solid black;
+               
+            }
+        </style>
+    <table class = "tb1">
+            <thead>
+
+
+                    <th>Set Name</th>
+                    <th>Theme Name</th>
+                    <th>Year</th>
+                    <th>Piece count</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for result in results %}
+                  <tr>
+                     <td class = color1>{{ result.set_num }}</td>
+                     <td class = color1>{{ result.set_name }}</td>
+                     <td class = color1>{{ result.theme_name }}</td>
+                     <td class = color1>{{ result.year }} </td> 
+                     <td class = color1>{{ result.part_count }}</td>
+                     <td class="color1">
+                        <form method="post" action="/my-sets">
+                        <input type="hidden" name="set_num2" value="{{ result.set_num }}">
+                        <button type="submit" class="star-btn" name="star" value = false> &#11088; </button>
+                        </form>
+                      </td>
+                  </tr>
+                {% endfor %}
+            </tbody>
+            
+    {% else %}
+    <h1 class = color1>No results :(</h1>
+    {% endif %}
+    </table>
+</body>
+</html>
