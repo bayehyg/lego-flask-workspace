@@ -9,6 +9,9 @@ conn = psycopg2.connect(
     "postgres://legos_user:C5zVYNrlLNN1QTZcnLR9JqncahDpRpKg@dpg-cla17u62eqrc7394na0g-a/legos",
     cursor_factory=RealDictCursor)
 app = Flask(__name__, template_folder= '')
+if __name__ == '__main__':
+    app.run(host='0.0.0.0', port=5000)
+
 
 
 
