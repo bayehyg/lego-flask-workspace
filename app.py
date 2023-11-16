@@ -52,7 +52,7 @@ def check_part(value, default_value):
 @app.route("/")
 def hello_world():
     name = request.args.get("name", "World")
-    return f"<p>Hello, {name}!</p>"
+    return f"<p>Hello, me!</p>"
 
 @app.route("/sets", methods= ['GET', 'POST'])
 def render_sets():
@@ -172,16 +172,16 @@ def render_sets():
         
     
 
-        return render_template("sets.html",
-                               params=request.args,
-                               result_count_r=count,
-                               sets=results,
-                               per_page = limit,
-                               get_sort_dir=get_sort_dir,
-                               get_page_num=get_page_num,
-                               search_by=search_by,
-                               starred = star
-                                )
+    return render_template("sets.html",
+                            params=request.args,
+                            result_count_r=count,
+                            sets=results,
+                            per_page = limit,
+                            get_sort_dir=get_sort_dir,
+                            get_page_num=get_page_num,
+                            search_by=search_by,
+                            starred = star
+                            )
     
 
 @app.route("/my-sets", methods=['GET','POST'])
