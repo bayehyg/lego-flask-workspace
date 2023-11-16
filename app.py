@@ -140,25 +140,32 @@ def render_sets():
             return page_num
         else:
             return 1
+        
+    try:
+        with conn.cursor() as cur:
+            cur.execute(f"""select s.name as set_name,Count(s.num_parts) as part_count, s.year,t.name as theme_name, s.set_num as set_num, s.starred as star
+                            {from_where_clause}""",
+                        params)
+            results = list(cur.fetchall())
 
-    with conn.cursor() as cur:
-        cur.execute(f"""select s.name as set_name,Count(s.num_parts) as part_count, s.year,t.name as theme_name, s.set_num as set_num, s.starred as star
-                        {from_where_clause}""",
-                    params)
-        results = list(cur.fetchall())
+            cur.execute("""select count(*) from 
+                        (select s.name as set_name 
+                        from set s 
+                        inner join theme t on s.theme_id = t.id
+                        inner join inventory i on s.set_num = i.set_num
+                        inner join inventory_part ip on ip.inventory_id = i.id 
+                        where s.name ilike %(set_name)s
+                            and t.name ilike %(theme_name)s
+                        group by s.name,s.year,t.name,s.set_num
+                        having Count(s.num_parts) >= %(part_count_gte)s and Count(s.num_parts) <= %(part_count_lte)s) as count""",
+                        params)
+            count = cur.fetchone()["count"]
+    except Exception as e:
+        # Rollback the transaction
+        conn.rollback()
+        print(f"Error: {e}")
 
-        cur.execute("""select count(*) from 
-                    (select s.name as set_name 
-                    from set s 
-    inner join theme t on s.theme_id = t.id
-    inner join inventory i on s.set_num = i.set_num
-    inner join inventory_part ip on ip.inventory_id = i.id 
-    where s.name ilike %(set_name)s
-        and t.name ilike %(theme_name)s
-     group by s.name,s.year,t.name,s.set_num
-     having Count(s.num_parts) >= %(part_count_gte)s and Count(s.num_parts) <= %(part_count_lte)s) as count""",
-     params)
-        count = cur.fetchone()["count"]
+    
 
         # cur.execute("update set set starred = %(star)s where name ilike %(set_num2)s", params1)
         # conn.commit()
