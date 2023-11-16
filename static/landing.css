@@ -1,12 +1,17 @@
 /* styles.css */
 
 /* Hero Section */
+body{
+    height: 100vh;
+    background-color: #242A34 !important;
+    color: #f1f1f1;
+}
+
 .hero {
     height: 80vh;
-    background-image: url('path/to/your/image.jpg'); /* Add your image path */
     background-size: cover;
     background-position: center;
-    color: #fff;
+    color: #f1f1f1;
   }
   
   .hero h1 {
@@ -27,8 +32,10 @@
   
   /* Navbar */
   .navbar {
+    background-color: #d8d403 !important;
     padding-top: 1rem;
     padding-bottom: 1rem;
+    color: #000000 !important;
   }
   
   .navbar-brand {
@@ -37,19 +44,19 @@
   }
   
   .navbar-toggler-icon {
-    background-color: #fff;
+    background-color: #000000;
   }
   
   .nav-link {
     margin: 0 10px;
     font-size: 1.1rem;
     font-weight: bold;
-    color: #fff !important;
+    color: #000000 !important;
   }
   
   /* Custom Button */
   .btn-primary {
-    background-color: #ffcc00;
+    background-color: #d8d403 ;
     border: none;
   }
   
