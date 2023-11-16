@@ -52,7 +52,7 @@ def check_part(value, default_value):
 @app.route("/")
 def hello_world():
     name = request.args.get("name", "World")
-    return f"<p>Hello, me!</p>"
+    return render_template("landing.html")
 
 @app.route("/sets", methods= ['GET', 'POST'])
 def render_sets():
