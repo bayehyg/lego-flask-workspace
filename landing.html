@@ -3,20 +3,22 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>LegoLand - Welcome!</title>
-  <!-- Bootstrap CSS -->
+  <title>LegoLand</title>
+  <link rel="icon" href="https://cdn.svgapi.com/vector/290625/smug-lego.svg" type="svg\">
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
-  <!-- Custom CSS -->
-  <link href="landing.css" rel="stylesheet">
+  <link href="./static/landing.css" rel="stylesheet">
 </head>
 <body>
+    
   <!-- Navbar -->
   <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
     <div class="container">
-      <a class="navbar-brand" href="#">LegoLand</a>
-      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-        <span class="navbar-toggler-icon"></span>
-      </button>
+        <a style="color: black;" class="navbar-brand" href="#">
+            <svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" viewBox="0 0 20 20" fill="currentColor" class="bi bi-brick" style="margin-left: 5px;">
+              <image href="https://cdn.svgapi.com/vector/290625/smug-lego.svg" width="20" height="20" />
+            </svg>
+            LegoLand
+          </a>
       <div class="collapse navbar-collapse" id="navbarNav">
         <ul class="navbar-nav ms-auto">
           <li class="nav-item">
@@ -34,22 +36,17 @@
   </nav>
 
   <!-- Hero Section -->
-  <section class="hero d-flex align-items-center ">
-    <div style="margin-top: 30px;" class="container text-center">
-      <h1>Welcome to My Lego Database Query Tool!</h1>
+  <section style="height: 400px;" class="hero d-flex align-items-center ">
+    <div style="margin-top: 30px; margin-bottom: 0px;" class="container text-center">
+      <h1 style="padding-bottom: 20px;">Welcome to My Lego Database Query Tool!</h1>
       <p>Your ultimate destination for everything LEGO</p>
-      <a href="/sets" class="btn btn-primary">Explore Now</a>
+      <a style="color: black; font-weight: bold;" href="/sets" class="btn btn-primary">Explore Now</a>
     </div>
   </section>
 
-  <!-- About Section -->
-  <section id="about" class="about">
-    <div class="container">
-    </div>
-  </section>
 
   <!-- Features Section -->
-  <section id="features" class="features">
+  <section style="padding: 0px;" id="features" class="features">
     <div class="container">
       <h2>Features</h2>
       <p>You can search for your favorite LEGO piece</p>
@@ -57,10 +54,10 @@
   </section>
 
   <!-- Contact Section -->
-  <section id="contact" class="contact">
+  <section style="padding: 10px;" id="contact" class="contact">
     <div class="container">
       <h2>Contact Us</h2>
-      <p>Email: contact@legoland.com</p>
+      <p style="margin-bottom: 5px;">Email: contact@legoland.com</p>
       <p>Phone: +1 123 456 7890</p>
     </div>
   </section>
