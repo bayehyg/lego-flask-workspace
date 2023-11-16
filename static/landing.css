@@ -1,0 +1,59 @@
+/* styles.css */
+
+/* Hero Section */
+.hero {
+    height: 80vh;
+    background-image: url('path/to/your/image.jpg'); /* Add your image path */
+    background-size: cover;
+    background-position: center;
+    color: #fff;
+  }
+  
+  .hero h1 {
+    font-size: 3rem;
+  }
+  
+  .hero p {
+    font-size: 1.2rem;
+    margin-bottom: 2rem;
+  }
+  
+  /* About, Features, and Contact Sections */
+  .about,
+  .features,
+  .contact {
+    padding: 4rem 0;
+  }
+  
+  /* Navbar */
+  .navbar {
+    padding-top: 1rem;
+    padding-bottom: 1rem;
+  }
+  
+  .navbar-brand {
+    font-weight: bold;
+    font-size: 1.5rem;
+  }
+  
+  .navbar-toggler-icon {
+    background-color: #fff;
+  }
+  
+  .nav-link {
+    margin: 0 10px;
+    font-size: 1.1rem;
+    font-weight: bold;
+    color: #fff !important;
+  }
+  
+  /* Custom Button */
+  .btn-primary {
+    background-color: #ffcc00;
+    border: none;
+  }
+  
+  .btn-primary:hover {
+    background-color: #f7b800;
+  }
+  
