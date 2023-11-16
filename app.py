@@ -6,11 +6,7 @@ from psycopg2.extras import RealDictCursor
 
 
 conn = psycopg2.connect(
-    dbname=os.environ.get("DB_NAME"),
-    host=os.environ.get("DB_HOST"),
-    port=os.environ.get("DB_PORT"),
-    user=os.environ.get("DB_USER"),
-    password=os.environ.get("DB_PASSWORD"),
+    "postgres://legos_user:C5zVYNrlLNN1QTZcnLR9JqncahDpRpKg@dpg-cla17u62eqrc7394na0g-a/legos",
     cursor_factory=RealDictCursor)
 app = Flask(__name__, template_folder= '')
 
