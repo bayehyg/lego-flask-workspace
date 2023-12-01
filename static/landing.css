@@ -27,7 +27,11 @@ body{
   .about,
   .features,
   .contact {
-    padding: 4rem 0;
+    padding: 1rem 0;
+    
+  }
+  .features{
+    margin-top: 12rem;
   }
   
   /* Navbar */

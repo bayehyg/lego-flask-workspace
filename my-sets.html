@@ -1,55 +1,145 @@
+<!DOCTYPE html>
 <html>
-    <head> 
-        <title>LEGO: search sets</title>
-        <link rel="stylesheet" href="static/sets.css">
-        <img class="img" src="/static/lego.jpg" alt="Lego Logo">
+    <head>
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
+        <link rel="icon" href="https://cdn.svgapi.com/vector/290625/smug-lego.svg" type="svg\">
+        <link rel="stylesheet" type="text/css" href="../static/style.css" />
     </head>
+    <body>
 
-<body class = body1>
-    <span class="body2">               
-        <h1>Your Sets</h1>        
-    </span>
-</body>
-<body>
-    {% if result_count_r > 0 %}
-    <h1 class = color1>{{result_count_r}} results</h1>
-        <style>
-            table, th,td {
-                border: 1px solid black;
-               
-            }
-        </style>
-    <table class = "tb1">
-            <thead>
-
-
-                    <th>Set Name</th>
-                    <th>Theme Name</th>
-                    <th>Year</th>
-                    <th>Piece count</th>
+        <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+            <div class="container">
+                <a style="color: black;" class="navbar-brand" href="/landing">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" viewBox="0 0 20 20" fill="currentColor" class="bi bi-brick" style="margin-left: 5px;">
+                      <image href="https://cdn.svgapi.com/vector/290625/smug-lego.svg" width="20" height="20" />
+                    </svg>
+                    LegoLand
+                  </a>
+              <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ms-auto">
+                  <li class="nav-item">
+                    <a class="nav-link" href="/sets">Search</a>
+                  </li>
+                  <li class="nav-item">
+                    <a class="nav-link" href="#">Favorites</a>
+                  </li>
+                </ul>
+              </div>
+            </div>
+          </nav>
+        
+          <div  class="container my-5">
+            <div id="boxcont" class="p-5 text-center bg-body-tertiary rounded-3">
+              <h1 id="myh1" class="text-body-emphasis">Favorites</h1>
+            </div>
+          </div>
+        <h1>{{num}} Results</h1>
+        <div style="width: 100vw;" class="table-responsive">
+        <table id="asdf" class="table  ">
+            <thead class="thead-dark">
+                <tr>
+                    <th>
+                        <a href="{{ link }}&sort_by=set_num&sort_byp={{ request.args.get('sort_by','') }}">
+                            Set Num
+                            {% if sort_by == 'set_num' %}
+                                {% if params[0] == 'asc' %}
+                                    <i class="bi bi-caret-up-fill"></i>
+                                {% else %}
+                                    <i class="bi bi-caret-down-fill"></i>
+                                {% endif %}
+                            {% endif %}
+                        </a>
+                    </th>
+                    <th>
+                        <a href="{{ link }}&sort_by=set_name&sort_byp={{ request.args.get('sort_by','') }}">
+                            Set Name
+                            {% if sort_by == 'set_name' %}
+                                {% if params[0] == 'asc' %}
+                                    <i class="bi bi-caret-up-fill"></i>
+                                {% else %}
+                                    <i class="bi bi-caret-down-fill"></i>
+                                {% endif %}
+                            {% endif %}
+                        </a>
+                    </th>
+                    
+                    <th>
+                        <a href="{{ link }}&sort_by=theme_name&sort_byp={{ request.args.get('sort_by','') }}">
+                            Theme
+                            {% if sort_by == 'theme_name' %}
+                                {% if params[0] == 'asc' %}
+                                    <i class="bi bi-caret-up-fill"></i>
+                                {% else %}
+                                    <i class="bi bi-caret-down-fill"></i>
+                                {% endif %}
+                            {% endif %}
+                        </a>
+                    </th>
+                    <th>
+                        <a href="{{ link }}&sort_by=year&sort_byp={{ request.args.get('sort_by','') }}">
+                            Year
+                            {% if sort_by == 'year' %}
+                                {% if params[0] == 'asc' %}
+                                    <i class="bi bi-caret-up-fill"></i>
+                                {% else %}
+                                    <i class="bi bi-caret-down-fill"></i>
+                                {% endif %}
+                            {% endif %}
+                        </a>
+                    </th>
+                    <th>
+                        <a href="{{ link }}&sort_by=part_count&sort_byp={{ request.args.get('sort_by','') }}">
+                            Part Count
+                            {% if sort_by == 'part_count' %}
+                                {% if params[0] == 'asc' %}
+                                    <i class="bi bi-caret-up-fill"></i>
+                                {% else %}
+                                    <i class="bi bi-caret-down-fill"></i>
+                                {% endif %}
+                            {% endif %}
+                        </a>
+                    </th>
+                    <th>
+                        
+                    </th>
                 </tr>
             </thead>
             <tbody>
-                {% for result in results %}
-                  <tr>
-                     <td class = color1>{{ result.set_num }}</td>
-                     <td class = color1>{{ result.set_name }}</td>
-                     <td class = color1>{{ result.theme_name }}</td>
-                     <td class = color1>{{ result.year }} </td> 
-                     <td class = color1>{{ result.part_count }}</td>
-                     <td class="color1">
-                        <form method="post" action="/my-sets">
-                        <input type="hidden" name="set_num2" value="{{ result.set_num }}">
-                        <button type="submit" class="star-btn" name="star" value = false> &#11088; </button>
-                        </form>
-                      </td>
-                  </tr>
+                {% for row in rows %}
+                <tr class="{{ 'table-row-red' if loop.index is odd else 'table-row-yellow' }}">
+                    <td>{{ row.set_num }}</td>
+                    <td>{{ row.set_name }}</td>
+                    <td>{{ row.theme_name }}</td>
+                    <td>{{ row.year }}</td>
+                    <td>{{ row.part_count }}</td>
+                    <td>
+                        <img class="star-icon" {% if row.star %} src="./static/starred.png" {% else %} src="./static/unstar.png" {% endif %} alt="Star" data-setnum="{{ row.set_num }}" data-bool="{{ row.star }}">
+                    </td>
+                </tr>
                 {% endfor %}
             </tbody>
-            
-    {% else %}
-    <h1 class = color1>No results :(</h1>
-    {% endif %}
-    </table>
-</body>
+        </table>
+        </div>
+          <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+          <script>
+            $('.star-icon').click(function() {
+                var setNum = $(this).data('setnum');
+                console.log('Star');
+                var clickedRow = $(this).closest('tr');
+
+                $.ajax({    
+                    url: '/star',
+                    type: 'GET',
+                    data: { star: false, set_num: setNum },
+                    success: function(response) {
+                        clickedRow.remove();
+                        console.log('Star updated successfully:', response);
+                    },
+                    error: function(xhr, status, error) {
+                        console.error('Error updating star:', error);
+                    }
+                });
+            });
+          </script>
+    </body>
 </html>
