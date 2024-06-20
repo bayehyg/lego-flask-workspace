@@ -133,20 +133,25 @@ def fetch_sets():
                 having count(set.num_parts) > %(min_part_count)s and count(set.num_parts) < %(max_part_count)s
                 order by {sort_by} {sort_dir}
                 """
-    with conn.cursor() as cur:
-        cur.execute(f"""
-                        {query} limit %(limit)s 
-                        offset %(offset)s
-                    """,
-                    {
-                    "set_name": f'%{set_name}%',
-                    "theme_name": f"%{theme_name}%",
-                    "min_part_count": min_part_count,
-                    "max_part_count": max_part_count,
-                    "limit": limit,
-                    "offset": offset
-                })        
-        result = list(cur.fetchall())
+    try:
+        with conn.cursor() as cur:
+            cur.execute(f"""
+                            {query} limit %(limit)s 
+                            offset %(offset)s
+                        """,
+                        {
+                        "set_name": f'%{set_name}%',
+                        "theme_name": f"%{theme_name}%",
+                        "min_part_count": min_part_count,
+                        "max_part_count": max_part_count,
+                        "limit": limit,
+                        "offset": offset
+                    })        
+            result = list(cur.fetchall())
+    except Exception as e:
+        conn.rollback()  # Rollback the transaction
+        print(f"Error: {e}")
+    
     with conn.cursor() as cur:
         cur.execute(f"select count(*) as num from ({query}) as sub",
                     {
