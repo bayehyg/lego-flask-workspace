@@ -6,7 +6,7 @@ from psycopg2.extras import RealDictCursor
 
 
 conn = psycopg2.connect(
-    "postgres://legos_user:C5zVYNrlLNN1QTZcnLR9JqncahDpRpKg@dpg-cla17u62eqrc7394na0g-a/legos",
+    "postgres://lego_land_db_user:K1rQJJ78QA38zeRuiV2DvNZ8MnWU3mzA@dpg-cppuandds78s73ef0480-a/lego_land_db",
     cursor_factory=RealDictCursor)
 app = Flask(__name__, template_folder= '')
 if __name__ == '__main__':
